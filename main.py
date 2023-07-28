@@ -29,7 +29,7 @@ def check_upgrades():
     for upgrade in upgrades:
         upgrade.click()
 
-    items = driver.find_elements(By.CSS_SELECTOR, ".storeSection .price")
+    items = driver.find_elements(By.CSS_SELECTOR, ".storeSection div.enabled .price")
     items_list = [float(item.text.replace(",", ".").split(" ")[0]) for item in items if item.text != '']
     for buy in items_list[::-1]:
         if buy <= coockies:
