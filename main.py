@@ -25,13 +25,12 @@ def check_upgrades():
     threading.Timer(5.0, check_upgrades).start()
     coockies = float(driver.find_element(By.ID, "cookies").text.split()[0].replace(",", "."))
 
-    upgrades = driver.find_elements(By.CSS_SELECTOR, "#upgrades div")
+    upgrades = driver.find_elements(By.CSS_SELECTOR, "#upgrades div.enabled")
     for upgrade in upgrades:
         upgrade.click()
 
     items = driver.find_elements(By.CSS_SELECTOR, ".storeSection .price")
     items_list = [float(item.text.replace(",", ".").split(" ")[0]) for item in items if item.text != '']
-    print(items_list)
     for buy in items_list[::-1]:
         if buy <= coockies:
             driver.find_element(By.ID, f"product{items_list.index(buy)}").click()
